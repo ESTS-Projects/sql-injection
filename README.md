@@ -1,2 +1,2 @@
-# sql-injection
+# SQL Injection
 SQL Injection Demo
