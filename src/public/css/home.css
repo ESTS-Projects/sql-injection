@@ -22,6 +22,8 @@ td {
 
 .content__users {
     margin: 10px 10px 10px 30px;
+    max-height: 540px;
+    overflow: auto;
 }
 
 .content__user {
@@ -38,11 +40,17 @@ td {
     width: 60%;
 }
 
+.preview {
+    width: 100%;
+    font-size: 16px;
+    text-align: left;
+}
+
 .form form {
     margin: 0;
 }
 
-.form input {
+.form input[type='text'] {
     width: 100%;
 }
 

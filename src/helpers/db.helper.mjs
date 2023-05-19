@@ -45,11 +45,20 @@ export function seedUsers(connection, res) {
         });
 }
 
+/**
+ * @param {PoolConnection} connection
+ */
 export async function createUser(connection, req, res) {
-    const { name, email } = req.body;
+    const { name, email, safe } = req.body;
 
     try {
-        await connection.query('INSERT INTO users (name, email) VALUES (?, ?)', [name, email]);
+        if (safe) {
+            await connection.query('INSERT INTO users (name, email) VALUES (?, ?);', [name, email]);
+        } else {
+            const queries = `INSERT INTO users (name, email) VALUES ('${name}', '${email}');`.split(';').filter(e => e.length > 0);
+            await Promise.all(queries.map(e => connection.query(e)));
+        }
+
         res.redirect('/');
     } catch (err) {
         console.error('Error adding user:', err);
