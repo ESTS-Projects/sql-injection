@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        <%= title %>
+    </title>
+
+    <link rel="stylesheet" type="text/css" href="/css/skeleton.css">
+    <link rel="stylesheet" type="text/css" href="/css/home.css">
+</head>
+
+<body>
+    <div class="title">
+        <h1>
+            <%= title %> Demo
+        </h1>
+
+        <h4>
+            Oussama Essamadi et Zakaria Dorhmi
+        </h4>
+
+        <form action="/seed" method="POST">
+            <button type="submit">Seed Users</button>
+        </form>
+    </div>
+
+    <hr>
+
+    <div class="content">
+        <div class="content__users">
+            <% if (users.length> 0) { %>
+                <h3>All Users:</h3>
+
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                    </tr>
+                    <% users.forEach(user=> { %>
+                        <tr>
+                            <td>
+                                <%= user.name %>
+                            </td>
+                            <td>
+                                <%= user.email %>
+                            </td>
+                        </tr>
+                        <% }); %>
+                </table>
+                <% } else { %>
+                    <p>No users found.</p>
+                    <% } %>
+        </div>
+
+        <div class="content__user">
+            <div class="form">
+                <h4>Add a New User:</h4>
+                <form action="/add-user" method="POST">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+                    <br>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                    <br>
+                    <button type="submit">Add User</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/app
+    environment:
+      - NODE_ENV=development
+      - MYSQL_USER=root
+      - MYSQL_DATABASE=db
+      - MYSQL_ROOT_PASSWORD=essouss
+    depends_on:
+      - db
+  db:
+    image: mysql:5.7
+    ports:
+      - 3306:3306
+    volumes:
+      - db:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=db
+      - MYSQL_ROOT_PASSWORD=essouss
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - 8080:80
+    depends_on:
+      - db
+    environment:
+      - PMA_ARBITRARY=1
+volumes:
+  db:
